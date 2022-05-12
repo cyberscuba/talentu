@@ -9,12 +9,12 @@ registeroffer:
     path: /api/v1/offer/create_offer
     controller: App\Controller\OfferController:createOffer
     methods: POST
-
+#Api routes entity offers users
 registerofferuser:
     path: /api/v1/offer/create_offer_user
-    controller: App\Controller\OfferController::createOfferUser
+    controller: App\Controller\OfferController::createUsersOffer
     methods: POST
-
+#Api routes show offer list
 offerlist:
     path: /api/v1/offer/offer_list
     controller: App\Controller\OfferController::offerList

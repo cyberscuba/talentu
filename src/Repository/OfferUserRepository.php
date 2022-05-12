@@ -39,6 +39,7 @@ class OfferUserRepository extends ServiceEntityRepository
         }
     }
 
+
 //    /**
 //     * @return OfferUser[] Returns an array of OfferUser objects
 //     */

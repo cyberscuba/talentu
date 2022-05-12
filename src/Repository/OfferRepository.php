@@ -39,6 +39,14 @@ class OfferRepository extends ServiceEntityRepository
         }
     }
 
+    public function getUserOfferRelation(){
+        return $this->createQueryBuilder('o')
+                ->select('o.id, o.name as offername, u.name as username, u.emailAddress')
+                ->innerJoin('o.users', 'u')
+                ->getQuery()
+                ->getResult();
+    }
+
 //    /**
 //     * @return Offer[] Returns an array of Offer objects
 //     */

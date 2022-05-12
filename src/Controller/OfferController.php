@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Offer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,9 +44,46 @@ class OfferController extends ApiController
     }
 
 
-    public function createUsersOffer() {
+    public function createUsersOffer(Request $request) 
+    {
+        $data = json_decode($request->getContent(), true);
+        $validateExistOffer = $this->entityManager->getRepository(Offer::class)->find($data['offer']);
+        
+        if ($validateExistOffer){
+            foreach ($data['users'] as $key => $value) {
+            
+                if ($validateExistUser = $this->entityManager->getRepository(User::class)->find($value)){
+                    $validateExistOffer->addUser($validateExistUser);
+                }
+            }
+            $this->entityManager->flush();
+            return $this->successResponse([
+                "message" => "Created new user offer successfully",
+                "code"    => Response::HTTP_OK
+            ],Response::HTTP_OK);
+        }else{
+            return $this->errorResponse("An error occurred while saving the user offer relation (Offer NOT exists)", Response::HTTP_BAD_REQUEST);
 
-        // Debe relacionar los usuarios con una oferta
+        }            
+    }
 
+    public function offerList(Request $request){
+        $offerUserList = $this->showAll($this->entityManager->getRepository(Offer::class)->getUserOfferRelation());
+        $data = [];
+
+        $offers = $this->entityManager->getRepository(Offer::class)->findAll();
+
+        foreach($offers as $offer){
+            $data[] =[
+                "offer" => $offer->getName(),
+                "users" => $this->entityManager->getRepository(User::class)->getUserByOfferId($offer->getId())
+            ];
+            
+        }
+        return $this->showAll($data);
+        var_dump($data);
+
+        die('COMMENT BY CAMS...');
+        
     }
 }

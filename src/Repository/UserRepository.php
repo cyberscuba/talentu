@@ -38,6 +38,16 @@ class UserRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function getUserByOfferId($offerId): array {
+        return $this->createQueryBuilder('u')
+                ->select('u.name as username, u.emailAddress, u.documentNumber')
+                ->andWhere('o.id = :val')
+                ->setParameter('val', $offerId)
+                ->innerJoin('u.offers', 'o')
+                ->getQuery()
+                ->getResult();
+    }
+
 
 //    /**
 //     * @return User[] Returns an array of User objects

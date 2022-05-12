@@ -25,8 +25,8 @@ class UserController extends ApiController
 
             $user = new User();
             $user->setName($data['name']);
-            $user->setEmailAddress($data['document_type']);
-            $user->setDocumentNumber($data['email']);
+            $user->setEmailAddress($data['email']);
+            $user->setDocumentNumber($data['document_type']);
             $user->setEnabled($data['enabled']);
 
             $this->entityManager->persist($user);
