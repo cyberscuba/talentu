@@ -1,0 +1,21 @@
+#Api routes entity users
+register:
+    path: /api/v1/user/create_user
+    controller: App\Controller\UserController::createUser
+    methods: POST
+
+#Api routes entity offers
+registeroffer:
+    path: /api/v1/offer/create_offer
+    controller: App\Controller\OfferController:createOffer
+    methods: POST
+
+registerofferuser:
+    path: /api/v1/offer/create_offer_user
+    controller: App\Controller\OfferController::createOfferUser
+    methods: POST
+
+offerlist:
+    path: /api/v1/offer/offer_list
+    controller: App\Controller\OfferController::offerList
+    methods: GET
